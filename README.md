@@ -14,7 +14,7 @@ curl -L https://raw.githubusercontent.com/superlady2049-source/claude-usage-limi
 
 ## 作者
 
-**Li Kai** · 立凯咨询 · AI 经营咨询顾问
+**Li Kai** · 立凯咨询 · AI经营改善顾问 · AI Operations Improvement Consultant
 
 扫码添加飞书联系人：
 
