@@ -26,3 +26,7 @@ curl -L $B/hooks/session_start_reminder.py -o ~/.claude/hooks/session_start_remi
 <img src="assets/lark-qr.png" width="220" alt="KAI LI 飞书二维码">
 
 MIT License
+
+## English summary
+
+A Claude Code skill to cut usage burn: model routing for subagents, session hygiene (one task per session, hand off after ~4h, `/clear` when switching), forecasting big jobs before dispatch, killing idle agents, a PreToolUse hook that blocks `general-purpose` subagents launched without an explicit `model` (and requires a stated reason for opus/fable), and a zero-token weekly review script design reading `~/.claude/projects/**/*.jsonl`. Docs are in Chinese; the hook scripts work as-is.

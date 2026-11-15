@@ -12,13 +12,15 @@ i = d.get("tool_input") or {}
 t = i.get("subagent_type") or "general-purpose"
 m = i.get("model")
 try:
-    with open(os.path.expanduser("~/.claude/hooks/agent_dispatch.log"), "a", encoding="utf-8") as f:
+    lp = os.path.expanduser("~/.claude/hooks/agent_dispatch.log")
+    os.makedirs(os.path.dirname(lp), exist_ok=True)
+    with open(lp, "a", encoding="utf-8") as f:
         f.write(f"{time.strftime('%F %T')}\t{t}\t{m or '-'}\t{i.get('description','')}\n")
 except Exception:
     pass
 if t in ("general-purpose", "claude") and not m:
     sys.stderr.write("拦截：派 general-purpose 必须显式写 model（取数/检查/截图用 haiku 或 sonnet，开发/因果分析才用 opus）。"
-                     "有专用 agent 的活（ad-data-fetcher、kb-checker、report-developer、Explore）请用专用的。")
+                     "有专用 agent（如 Explore）的活请用专用的。")
     sys.exit(2)
 if t in ("general-purpose", "claude") and m in ("opus", "fable"):
     if "【理由】" not in (i.get("prompt") or ""):

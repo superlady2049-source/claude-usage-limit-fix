@@ -1,6 +1,6 @@
 ---
 name: claude-usage-limit-fix
-description: Claude / Claude Code 额度用得太快、token 烧太多、很快触顶限流、会话越聊越贵、子智能体偷偷用 Opus、长会话不换新、agent 空转不停时使用。Fix Claude usage running out too fast, hitting limits early, burning tokens, runaway long sessions, expensive subagents, idle agents. 含：选模型、会话卫生、大用量任务预测、主动终止空跑、防错钩子、每周零 token 复盘与自我迭代。作者：KAI LI（立凯咨询，AI经营改善顾问 · AI Operations Improvement Consultant）。
+description: Claude / Claude Code 额度用得太快、token 烧太多、很快触顶限流、会话越聊越贵、子智能体偷偷用 Opus、长会话不换新、agent 空转不停时使用。Fix Claude usage running out too fast, hitting limits early, burning tokens, runaway long sessions, expensive subagents, idle agents. 含选模型、会话卫生、大用量预测、终止空跑、防错钩子、每周复盘。
 ---
 
 # Claude 额度用太快？省用量标准作业 V2
@@ -11,7 +11,7 @@ description: Claude / Claude Code 额度用得太快、token 烧太多、很快�
 
 ## 先看钱花在哪
 
-Claude 自带用量分析（Claude Code 的用量面板）常给出三条建议，也是最大的三笔浪费：
+按经验，最大的三笔浪费是：
 
 | 浪费 | 怎么做 |
 |---|---|
@@ -19,7 +19,7 @@ Claude 自带用量分析（Claude Code 的用量面板）常给出三条建议�
 | 换任务不 `/clear` | 换任务前把状态记到文件，再 `/clear` |
 | general-purpose 子智能体占比高 | 派活时显式写 `model`；有专用 agent 的活用专用的（见第二节） |
 
-你自己的占比请用第七节的复盘方法自查，别套别人的数字。
+你自己的占比请用第七节的复盘方法自查，别套别人的数字。（这三条是经验总结，不是官方固定清单。）
 
 ## 一、会话卫生
 
@@ -37,12 +37,14 @@ Claude 自带用量分析（Claude Code 的用量面板）常给出三条建议�
 | 上线前最后一轮评审 | 最贵档，只看精选材料 |
 
 - **混合任务拆两步：** 先让便宜模型抽出不超过 6,000 字的事实包，贵模型只读事实包。
-- **子智能体模型的优先级（官方文档）：** 派活时写的 `model` 参数 ＞ 子智能体定义里的 model ＞ 环境变量 `CLAUDE_CODE_SUBAGENT_MODEL` ＞ 主会话模型。所以环境变量只是兜底，挡不住你自己显式指定的贵模型；要硬挡，用第六节的钩子。不建议加 `CLAUDE_CODE_SUBAGENT_MODEL_FORCE`，它会把本该用小模型的活也抬成中档。
+- **子智能体模型的优先级（官方文档）：** 派活时写的 `model` 参数 ＞ 子智能体定义里的 model ＞ 环境变量 `CLAUDE_CODE_SUBAGENT_MODEL` ＞ 主会话模型。所以环境变量只是兜底，挡不住你在派活时显式指定的贵模型。两种硬挡办法：
+  - **全部压到同一档**：设 `CLAUDE_CODE_SUBAGENT_MODEL=haiku`（或 sonnet）并加 `CLAUDE_CODE_SUBAGENT_MODEL_FORCE=1`，此后 Claude 不能再按次指定模型，所有子智能体都用这个模型（据官方 sub-agents 文档，需较新版本，以你的版本说明为准）。注意：这是「一刀切」，需要贵模型的开发活也会被压低。
+  - **按活分级**：用第六节的钩子，不写模型就拦，写 opus/fable 必须写理由。
 - 不默认开高强度推理（effort high/xhigh/max）；联网搜索先用标准档。
 
 ## 三、预测大用量任务（派活前 1 分钟）
 
-**估算：** 预计 token ≈ 读入字数 ×2 ＋ 预计输出字数 ×4 ＋ 预计轮数 × 当前上下文 token。最后一项最容易漏：长会话里每多一轮，都要把整段上下文重读一遍。
+**估算（经验公式，系数需按你自己的数据校准）：** 预计 token ≈ 读入字数 ×2 ＋ 预计输出字数 ×4 ＋ 预计轮数 × 当前上下文 token。最后一项最容易漏：长会话里每多一轮，都要把整段上下文重读一遍。
 
 | 估算 | 做法 |
 |---|---|
@@ -93,7 +95,24 @@ Claude 自带用量分析（Claude Code 的用量面板）常给出三条建议�
 {"matcher": "Agent", "hooks": [{"type": "command", "command": "python3 ~/.claude/hooks/agent_model_gate.py", "timeout": 10}]}
 ```
 
-改完 settings.json 要开新会话才生效。
+改 settings.json 后一般会被自动识别；若没生效，再开新会话。
+
+**覆盖范围（别过度相信）：** 钩子只管派 general-purpose（或未指定类型）。你自己的自定义 agent 若在定义文件里写了 `model: opus`，不受它管，需要在定义里改。
+
+完整的 `~/.claude/settings.json` 示例（合并到你现有的 `hooks` 里，已有 `PreToolUse` 就把数组项并进去）：
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {"matcher": "Agent", "hooks": [{"type": "command", "command": "python3 ~/.claude/hooks/agent_model_gate.py", "timeout": 10}]}
+    ],
+    "SessionStart": [
+      {"hooks": [{"type": "command", "command": "python3 ~/.claude/hooks/session_start_reminder.py", "timeout": 5}]}
+    ]
+  }
+}
+```
 
 ## 七、每周零 token 复盘与自我迭代
 
