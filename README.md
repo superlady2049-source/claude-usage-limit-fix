@@ -15,6 +15,10 @@ curl -L $B/hooks/agent_model_gate.py -o ~/.claude/hooks/agent_model_gate.py
 curl -L $B/hooks/session_start_reminder.py -o ~/.claude/hooks/session_start_reminder.py
 ```
 
+## 交接模板
+
+长会话交接用 `templates/handoff.md`（目标、已完成、已确认事实、卡在哪、下一步、不要重做的事）。
+
 ## 作者
 
 **KAI LI** · 立凯咨询 · AI经营改善顾问 · AI Operations Improvement Consultant
