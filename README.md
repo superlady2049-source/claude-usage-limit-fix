@@ -12,6 +12,7 @@ B=https://raw.githubusercontent.com/superlady2049-source/claude-usage-limit-fix/
 curl -L $B/SKILL.md -o ~/.claude/skills/claude-usage-limit-fix/SKILL.md
 # 可选：防错钩子（派 general-purpose 不写模型就拦截），配置方法见 SKILL.md 第六节
 curl -L $B/hooks/agent_model_gate.py -o ~/.claude/hooks/agent_model_gate.py
+curl -L $B/hooks/session_start_reminder.py -o ~/.claude/hooks/session_start_reminder.py
 ```
 
 ## 作者
