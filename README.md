@@ -14,10 +14,12 @@ curl -L https://raw.githubusercontent.com/superlady2049-source/claude-usage-limi
 
 ## 作者
 
-**Li Kai** · 立凯咨询 · AI经营改善顾问 · AI Operations Improvement Consultant
+**KAI LI** · 立凯咨询 · AI经营改善顾问 · AI Operations Improvement Consultant
+
+邮箱：superlady2049@gmail.com
 
 扫码添加飞书联系人：
 
-<img src="assets/lark-qr.png" width="220" alt="Li Kai 飞书二维码">
+<img src="assets/lark-qr.png" width="220" alt="KAI LI 飞书二维码">
 
 MIT License

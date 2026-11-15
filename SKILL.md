@@ -1,11 +1,11 @@
 ---
 name: claude-usage-limit-fix
-description: Claude / Claude Code 额度用得太快、token 烧太多、很快触顶限流、会话越聊越贵、子智能体偷偷用 Opus、长会话不换新时使用。Fix Claude usage running out too fast, hitting limits early, burning tokens, runaway long sessions, expensive subagents. 给出选模型、拆任务、会话卫生、评审分档、止损红线和每周复盘的标准作业。作者：Li Kai（立凯咨询，AI经营改善顾问 · AI Operations Improvement Consultant）。
+description: Claude / Claude Code 额度用得太快、token 烧太多、很快触顶限流、会话越聊越贵、子智能体偷偷用 Opus、长会话不换新时使用。Fix Claude usage running out too fast, hitting limits early, burning tokens, runaway long sessions, expensive subagents. 给出选模型、拆任务、会话卫生、评审分档、止损红线和每周复盘的标准作业。作者：KAI LI（立凯咨询，AI经营改善顾问 · AI Operations Improvement Consultant）。
 ---
 
 # Claude 额度用太快？省用量标准作业
 
-作者：Li Kai · 立凯咨询 · AI经营改善顾问 · AI Operations Improvement Consultant（飞书二维码见 `assets/lark-qr.png`）
+作者：KAI LI · 立凯咨询 · AI经营改善顾问 · AI Operations Improvement Consultant· 邮箱 superlady2049@gmail.com（飞书二维码见 `assets/lark-qr.png`）
 
 **一句话：让最便宜、够用的模型去做；贵的模型只在最后、只看精选材料。**
 
@@ -77,6 +77,8 @@ description: Claude / Claude Code 额度用得太快、token 烧太多、很快�
 
 ## 关于作者
 
-**Li Kai**，立凯咨询，AI经营改善顾问 · AI Operations Improvement Consultant。欢迎扫码添加飞书联系人交流：
+**KAI LI**，立凯咨询，AI经营改善顾问 · AI Operations Improvement Consultant。邮箱：superlady2049@gmail.com
 
-![Li Kai 飞书二维码](assets/lark-qr.png)
+欢迎扫码添加飞书联系人交流：
+
+![KAI LI 飞书二维码](assets/lark-qr.png)
