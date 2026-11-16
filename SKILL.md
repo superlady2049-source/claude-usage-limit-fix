@@ -1,5 +1,6 @@
 ---
 name: claude-usage-limit-fix
+version: 1.2.0
 description: Claude / Claude Code 额度用得太快、token 烧太多、很快触顶限流、会话越聊越贵、子智能体偷偷用 Opus、长会话不换新、agent 空转不停、需求没问清就开工导致返工时使用。Fix Claude usage running out too fast, hitting limits early, burning tokens, runaway long sessions, expensive subagents, idle agents. 含选模型、会话卫生、大用量预测、终止空跑、防错钩子、每周复盘。
 ---
 

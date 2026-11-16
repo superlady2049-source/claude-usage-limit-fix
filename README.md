@@ -10,7 +10,7 @@ Claude usage running out too fast? A drop-in Claude Code skill: model routing, s
 mkdir -p ~/.claude/skills/claude-usage-limit-fix ~/.claude/hooks
 B=https://raw.githubusercontent.com/superlady2049-source/claude-usage-limit-fix/main
 curl -L $B/SKILL.md -o ~/.claude/skills/claude-usage-limit-fix/SKILL.md
-# 可选：防错钩子（派 general-purpose 不写模型就拦截），配置方法见 SKILL.md 第六节
+# 可选：防错钩子（派 general-purpose 不写模型就拦截），配置方法见 references/hook-guide.md
 curl -L $B/hooks/agent_model_gate.py -o ~/.claude/hooks/agent_model_gate.py
 curl -L $B/hooks/session_start_reminder.py -o ~/.claude/hooks/session_start_reminder.py
 ```
@@ -22,6 +22,7 @@ curl -L $B/hooks/session_start_reminder.py -o ~/.claude/hooks/session_start_remi
 ## 版本历史
 - v1.0：初版（选模型、会话卫生、大用量预测、终止空跑、防错钩子、复盘）。
 - v1.1：新增触发/不触发条件、4 行默认输出、证据分级、FAQ、示例。效果尚未被证明，仅有初步实测（单一环境、样本小）。
+- v1.2.0：七类浪费表重排为八类，新增「怎么发现」列和第八类「经验没用起来」，对策改为可直接照说的话。核心 SKILL.md 未改结构。
 
 ## 作者
 

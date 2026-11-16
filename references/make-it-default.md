@@ -9,4 +9,4 @@
 "SessionStart": [{"hooks": [{"type": "command", "command": "python3 ~/.claude/hooks/session_start_reminder.py", "timeout": 5}]}]
 ```
 
-仍然要靠钩子兜底：第六节的派活钩子是唯一不依赖模型自觉的硬约束。
+仍然要靠钩子兜底：派活钩子（references/hook-guide.md）是唯一不依赖模型自觉的硬约束。
