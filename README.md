@@ -19,6 +19,10 @@ curl -L $B/hooks/session_start_reminder.py -o ~/.claude/hooks/session_start_remi
 
 长会话交接用 `templates/handoff.md`（目标、已完成、已确认事实、卡在哪、下一步、不要重做的事）。
 
+## 版本历史
+- v1.0：初版（选模型、会话卫生、大用量预测、终止空跑、防错钩子、复盘）。
+- v1.1：新增触发/不触发条件、4 行默认输出、证据分级、FAQ、示例。效果尚未被证明，仅有初步实测（单一环境、样本小）。
+
 ## 作者
 
 **KAI LI** · 立凯咨询 · AI经营改善顾问 · AI Operations Improvement Consultant
